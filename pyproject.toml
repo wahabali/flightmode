@@ -1,0 +1,35 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "flightmode"
+version = "0.1.0"
+description = "Flight mode for AI agents: Meta's Rule of Two enforced in-process, before the call"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+keywords = ["llm", "agents", "security", "prompt-injection", "rule-of-two", "lethal-trifecta", "anthropic", "langgraph"]
+dependencies = []
+
+[project.optional-dependencies]
+anthropic = ["anthropic>=0.40.0"]
+langgraph = ["langgraph>=0.2.0"]
+all = ["anthropic>=0.40.0", "langgraph>=0.2.0"]
+dev = ["pytest>=8.0.0", "pytest-cov"]
+
+[project.scripts]
+flightmode = "flightmode.demo:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["flightmode"]
+
+[tool.hatch.build.targets.sdist]
+only-include = ["flightmode", "tests", "examples", "bench/run.py", "bench/survivors.py", "bench/capabilities.py", "bench/RESULTS.md", "README.md", "LICENSE", "pyproject.toml"]
+
+[project.urls]
+Homepage = "https://github.com/wahabali/flightmode"
+Issues = "https://github.com/wahabali/flightmode/issues"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
